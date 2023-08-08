@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2.service;
 
 import academy.devdojo.springboot2.domain.SerieModel;
+import academy.devdojo.springboot2.exception.BadRequestException;
 import academy.devdojo.springboot2.repository.SerieRepository;
 import academy.devdojo.springboot2.requests.SeriePostRequestBody;
 import academy.devdojo.springboot2.requests.SeriePutRequestBody;
@@ -15,17 +16,22 @@ import java.util.List;
 @Service
 public class SerieService {
 
-     private SerieRepository serieRepository;
+     private final SerieRepository serieRepository;
 
-    public SerieService() {
+    public SerieService(SerieRepository serieRepository) {
+        this.serieRepository = serieRepository;
     }
 
     public List<SerieModel> listAll() {
         return serieRepository.findAll();
     }
 
+    public List<SerieModel> findByName(String name) {
+        return serieRepository.findByName(name);
+    }
+
     public SerieModel findByIdOrThrowBadRequestException(long id) {
-        return serieRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Serie not found"));
+        return serieRepository.findById(id).orElseThrow(() -> new BadRequestException("Serie not found"));
     }
 
     public SerieModel save(SeriePostRequestBody seriePostRequestBody) {

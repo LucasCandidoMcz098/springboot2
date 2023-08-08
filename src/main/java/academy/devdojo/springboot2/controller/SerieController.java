@@ -22,7 +22,7 @@ public class SerieController {
 
     private DateUtil dateUtil;
     private SerieService serieService;
-    @Autowired
+
     public SerieController(DateUtil dateUtil, SerieService serieService) {
         this.dateUtil = dateUtil;
         this.serieService = serieService;
@@ -37,6 +37,12 @@ public class SerieController {
     public ResponseEntity<SerieModel> findById(@PathVariable long id){
         return ResponseEntity.ok(serieService.findByIdOrThrowBadRequestException(id));
     }
+
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<SerieModel>> findByName(@RequestParam(required = false) String name){
+        return ResponseEntity.ok(serieService.findByName(name));
+    }
+
     @PostMapping
     public ResponseEntity<SerieModel> save(@RequestBody SeriePostRequestBody seriePostRequestBody){
         return new ResponseEntity<>(serieService.save(seriePostRequestBody), HttpStatus.CREATED);

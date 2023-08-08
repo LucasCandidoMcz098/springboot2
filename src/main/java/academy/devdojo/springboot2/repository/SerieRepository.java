@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SerieRepository extends JpaRepository<SerieModel, Long> {
 
-
+    List<SerieModel> findByName(String name);
 }

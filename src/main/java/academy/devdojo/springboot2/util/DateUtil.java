@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Repository
+@Component
 public class DateUtil {
 
     public String formatLocalDateTimeToDatabaseStyle(LocalDateTime localDateTime){
